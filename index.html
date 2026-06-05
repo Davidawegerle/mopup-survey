@@ -4,328 +4,131 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>MU Mop-Up Survey · CCCIS</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --bg:       #0d1117;
-    --surface:  #161b22;
-    --card:     #1c2333;
-    --border:   #30363d;
-    --accent:   #00e5ff;
-    --accent2:  #f97316;
-    --success:  #3fb950;
-    --text:     #e6edf3;
-    --muted:    #7d8590;
-    --danger:   #f85149;
+    --bg:      #0d1117;
+    --surface: #161b22;
+    --card:    #1c2333;
+    --border:  #30363d;
+    --accent:  #00e5ff;
+    --accent2: #f97316;
+    --success: #3fb950;
+    --text:    #e6edf3;
+    --muted:   #7d8590;
+    --danger:  #f85149;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: Inter, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 40px; }
 
-  body {
-    font-family: 'Barlow', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding-bottom: 40px;
-  }
-
-  /* ── Header ── */
   header {
-    background: var(--surface);
-    border-bottom: 2px solid var(--accent);
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    background: var(--surface); border-bottom: 2px solid var(--accent);
+    padding: 14px 20px; display: flex; align-items: center;
+    justify-content: space-between; position: sticky; top: 0; z-index: 100;
   }
-  header .brand {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    letter-spacing: .5px;
-    color: var(--accent);
-  }
-  header .brand span { color: var(--text); }
+  .brand { font-size: 16px; font-weight: 800; color: var(--accent); }
+  .brand span { color: var(--text); font-weight: 400; }
   .trip-badge {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    background: var(--accent);
-    color: #000;
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: .5px;
+    font-size: 11px; font-weight: 700; background: var(--accent);
+    color: #000; padding: 3px 10px; border-radius: 20px; letter-spacing: .5px;
   }
 
-  /* ── Live clock ── */
   .live-bar {
-    background: #0a0e14;
-    border-bottom: 1px solid var(--border);
-    padding: 8px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 12px;
-    color: var(--muted);
+    background: #0a0e14; border-bottom: 1px solid var(--border);
+    padding: 8px 20px; display: flex; align-items: center; gap: 12px;
+    font-size: 12px; color: var(--muted);
   }
-  .live-bar .clock {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 1px;
-  }
+  .clock { font-size: 17px; font-weight: 700; color: var(--accent); letter-spacing: 1px; font-variant-numeric: tabular-nums; }
   .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); animation: pulse 2s infinite; display: inline-block; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
 
-  /* ── Form wrapper ── */
   .container { max-width: 560px; margin: 0 auto; padding: 20px 16px; }
 
-  /* ── Section cards ── */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-    margin-bottom: 14px;
-  }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 14px; }
   .card-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 1.2px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
   }
-  .card-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
+  .card-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* ── Fields ── */
   .field { margin-bottom: 14px; }
   .field:last-child { margin-bottom: 0; }
+  label { display: block; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 6px; }
 
-  label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .6px;
-    margin-bottom: 6px;
+  input, select, textarea {
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; padding: 12px 14px; font-family: Inter, sans-serif;
+    font-size: 15px; width: 100%; outline: none; transition: border-color .15s;
+    -webkit-appearance: none; appearance: none;
   }
-
-  input[type=text], input[type=number], select {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 12px 14px;
-    font-family: 'Barlow', sans-serif;
-    font-size: 15px;
-    color: var(--text);
-    outline: none;
-    transition: border-color .15s;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-  input[type=text]:focus, input[type=number]:focus, select:focus {
-    border-color: var(--accent);
-  }
+  input:focus, select:focus { border-color: var(--accent); }
   input[readonly] {
-    color: var(--accent);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    cursor: default;
-    border-color: transparent;
-    background: #0d1117;
+    color: var(--accent); font-weight: 700; font-size: 16px;
+    letter-spacing: .5px; cursor: default; border-color: transparent; background: #0d1117;
   }
   select option { background: var(--card); }
 
-  /* ── MU vehicle selector ── */
-  .mu-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    max-height: 220px;
-    overflow-y: auto;
-  }
-  .mu-btn {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 10px 6px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--muted);
-    cursor: pointer;
-    text-align: center;
-    transition: all .15s;
-    letter-spacing: .3px;
-  }
-  .mu-btn:active, .mu-btn.selected {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #000;
-  }
-  .mu-search {
-    margin-bottom: 10px;
+  .reg-display {
+    font-size: 20px; font-weight: 800; color: var(--accent2);
+    letter-spacing: 2px; text-align: center; padding: 10px;
+    background: #0d1117; border-radius: 7px; border: 1px solid var(--border); min-height: 46px;
   }
 
-  /* ── Direction pills ── */
+  /* Place pills */
   .place-group { display: flex; flex-direction: column; gap: 8px; }
   .place-row { display: flex; gap: 8px; align-items: center; }
   .place-pill {
-    flex: 1;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 11px 12px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--muted);
-    cursor: pointer;
-    text-align: center;
-    transition: all .15s;
-    user-select: none;
+    flex: 1; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 7px; padding: 11px 10px; font-size: 13px; font-weight: 500;
+    color: var(--muted); cursor: pointer; text-align: center; transition: all .15s; user-select: none;
   }
-  .place-pill.selected {
-    background: rgba(0,229,255,.1);
-    border-color: var(--accent);
-    color: var(--accent);
-    font-weight: 600;
-  }
-  .place-input {
-    flex: 1;
-    display: none;
-  }
+  .place-pill.selected { background: rgba(0,229,255,.1); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .place-input { flex: 1; display: none; }
   .place-input.show { display: block; }
 
-  /* ── Pax counter ── */
-  .counter-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  /* Pax counter */
+  .counter-row { display: flex; align-items: center; gap: 12px; }
   .counter-btn {
-    width: 46px;
-    height: 46px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--text);
-    font-size: 22px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: all .1s;
-    user-select: none;
+    width: 50px; height: 50px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text); font-size: 24px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all .1s; user-select: none;
   }
   .counter-btn:active { background: var(--accent); color: #000; border-color: var(--accent); }
-  .counter-val {
-    flex: 1;
-    text-align: center;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 36px;
-    font-weight: 800;
-    color: var(--accent);
-    letter-spacing: 1px;
-  }
+  .counter-val { flex: 1; text-align: center; font-size: 40px; font-weight: 800; color: var(--accent); letter-spacing: 1px; }
 
-  /* ── Submit ── */
+  /* Time */
+  .time-field { display: flex; align-items: center; gap: 10px; }
+  .time-field input { flex: 1; }
+  .time-set-btn {
+    background: var(--accent2); border: none; border-radius: 7px; padding: 12px 14px;
+    color: #fff; font-family: Inter, sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: .5px; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  }
+  .time-set-btn:active { opacity: .8; }
+
+  /* Submit */
   .submit-btn {
-    width: 100%;
-    padding: 16px;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: opacity .15s;
-    margin-top: 8px;
+    width: 100%; padding: 16px; background: var(--accent); color: #000; border: none;
+    border-radius: 10px; font-family: Inter, sans-serif; font-size: 17px; font-weight: 800;
+    letter-spacing: .5px; text-transform: uppercase; cursor: pointer; transition: opacity .15s; margin-top: 8px;
   }
   .submit-btn:active { opacity: .8; }
-  .submit-btn:disabled { opacity: .4; cursor: default; }
 
-  /* ── Toast ── */
+  /* Toast */
   .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
+    position: fixed; bottom: 24px; left: 50%;
     transform: translateX(-50%) translateY(80px);
-    background: var(--success);
-    color: #000;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 12px 28px;
-    border-radius: 40px;
-    letter-spacing: .5px;
-    transition: transform .3s ease;
-    z-index: 999;
-    white-space: nowrap;
+    background: var(--success); color: #000; font-size: 14px; font-weight: 700;
+    padding: 12px 28px; border-radius: 40px; transition: transform .3s ease;
+    z-index: 999; white-space: nowrap;
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.error { background: var(--danger); color: #fff; }
 
-  /* ── Auto time fields ── */
-  .time-field {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .time-field input { flex: 1; }
-  .time-set-btn {
-    background: var(--accent2);
-    border: none;
-    border-radius: 7px;
-    padding: 12px 14px;
-    color: #fff;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .time-set-btn:active { opacity: .8; }
-
-  /* ── Reg plate display ── */
-  .reg-display {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--accent2);
-    letter-spacing: 2px;
-    text-align: center;
-    padding: 10px;
-    background: #0d1117;
-    border-radius: 7px;
-    border: 1px solid var(--border);
-    min-height: 46px;
-  }
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .6s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -344,26 +147,22 @@
 
 <div class="container">
 
-  <!-- ── VEHICLE ── -->
+  <!-- VEHICLE -->
   <div class="card">
     <div class="card-title">🚐 MU Vehicle</div>
-
-    <div class="field mu-search">
-      <label>Search MU Code</label>
-      <input type="text" id="muSearch" placeholder="Type MU..." oninput="filterMU(this.value)">
+    <div class="field">
+      <label>Select MU Vehicle</label>
+      <select id="vehicleSelect" onchange="onVehicleSelect(this)">
+        <option value="">— Loading vehicles… —</option>
+      </select>
     </div>
-
-    <div class="mu-grid" id="muGrid">
-      <!-- populated by JS -->
-    </div>
-
-    <div class="field" style="margin-top:14px">
+    <div class="field">
       <label>Registration Plate</label>
       <div class="reg-display" id="regDisplay">—</div>
     </div>
   </div>
 
-  <!-- ── TRIP FROM ── -->
+  <!-- TRIP FROM -->
   <div class="card">
     <div class="card-title">📍 Trip From</div>
     <div class="place-group" id="fromGroup">
@@ -383,7 +182,7 @@
     </div>
   </div>
 
-  <!-- ── TRIP TO ── -->
+  <!-- TRIP TO -->
   <div class="card">
     <div class="card-title">🏁 Trip To</div>
     <div class="place-group" id="toGroup">
@@ -403,21 +202,20 @@
     </div>
   </div>
 
-  <!-- ── DEPARTURE TIME ── -->
+  <!-- DEPARTURE TIME -->
   <div class="card">
     <div class="card-title">⏱ Departure Time</div>
     <div class="field">
       <div class="time-field">
-        <input type="text" id="departureTime" readonly placeholder="Tap to set">
+        <input type="text" id="departureTime" readonly placeholder="Tap SET NOW">
         <button class="time-set-btn" onclick="setTime('departureTime')">SET NOW</button>
       </div>
     </div>
   </div>
 
-  <!-- ── PAX COUNTS ── -->
+  <!-- PAX COUNTS -->
   <div class="card">
     <div class="card-title">👥 Passenger Count</div>
-
     <div class="field">
       <label>Pax on board as observed</label>
       <div class="counter-row">
@@ -426,7 +224,6 @@
         <button class="counter-btn" onclick="adjustCount('paxOnBoard',1)">+</button>
       </div>
     </div>
-
     <div class="field" style="margin-top:18px">
       <label>Pax getting in at this point</label>
       <div class="counter-row">
@@ -437,71 +234,49 @@
     </div>
   </div>
 
-  <!-- ── TRIP END ── -->
+  <!-- TRIP END -->
   <div class="card">
     <div class="card-title">🔚 Trip End Time</div>
     <div class="field">
       <div class="time-field">
-        <input type="text" id="endTime" readonly placeholder="Tap to set at trip end">
+        <input type="text" id="endTime" readonly placeholder="Tap SET NOW at trip end">
         <button class="time-set-btn" onclick="setTime('endTime')">SET NOW</button>
       </div>
     </div>
   </div>
 
-  <!-- ── INSPECTOR ── -->
+  <!-- INSPECTOR -->
   <div class="card">
     <div class="card-title">👤 Inspector</div>
     <div class="field">
       <label>Inspector Name</label>
       <input type="text" id="inspectorName" placeholder="Your name" autocomplete="name"
-             value="" oninput="saveInspector(this.value)">
+             oninput="localStorage.setItem('mu_inspector',this.value)">
     </div>
   </div>
 
   <button class="submit-btn" onclick="submitForm()">Submit Observation</button>
-
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ── MU Vehicle data (loaded from middleware or static fallback) ──────────────
-const MU_VEHICLES = [
-  {code:"MU001",reg:"—"},{code:"MU002",reg:"HVH029NW"},{code:"MU003",reg:"—"},
-  {code:"MU004",reg:"—"},{code:"MU005",reg:"—"},{code:"MU006",reg:"—"},
-  {code:"MU007",reg:"—"},{code:"MU008",reg:"—"},{code:"MU009",reg:"—"},
-  {code:"MU010",reg:"—"},{code:"MU011",reg:"—"},{code:"MU012",reg:"—"},
-  {code:"MU013",reg:"—"},{code:"MU014",reg:"—"},{code:"MU015",reg:"—"},
-  {code:"MU016",reg:"—"},{code:"MU017",reg:"—"},{code:"MU018",reg:"—"},
-  {code:"MU019",reg:"—"},{code:"MU020",reg:"—"},{code:"MU021",reg:"—"},
-  {code:"MU022",reg:"—"},{code:"MU023",reg:"—"},{code:"MU024",reg:"—"},
-  {code:"MU025",reg:"—"},{code:"MU026",reg:"—"},{code:"MU027",reg:"—"},
-  {code:"MU028",reg:"—"},{code:"MU029",reg:"—"},{code:"MU030",reg:"—"},
-];
+const API = 'https://api.cccis.space';
 
 // ── State ────────────────────────────────────────────────────────────────────
-let state = {
-  tripNo:        null,
-  muCode:        null,
-  regPlate:      null,
-  tripFrom:      null,
-  tripTo:        null,
-  departureTime: null,
-  endTime:       null,
-  paxOnBoard:    0,
-  paxIn:         0,
-  inspector:     localStorage.getItem('mu_inspector') || '',
-};
+let tripFrom = null, tripTo = null;
+const counts = { paxOnBoard: 0, paxIn: 0 };
+let _vehicles = [];
 
-// ── Trip number (auto) ───────────────────────────────────────────────────────
+// ── Trip number ──────────────────────────────────────────────────────────────
 function generateTripNo() {
-  const now = new Date();
-  const d = now.toISOString().slice(0,10).replace(/-/g,'');
+  const d = new Date().toISOString().slice(0,10).replace(/-/g,'');
   const seq = (parseInt(localStorage.getItem('mu_trip_seq_'+d)||'0') + 1);
   localStorage.setItem('mu_trip_seq_'+d, seq);
   return `MU-${d}-${String(seq).padStart(3,'0')}`;
 }
+let currentTripNo = generateTripNo();
+document.getElementById('tripBadge').textContent = currentTripNo;
 
 // ── Clock ────────────────────────────────────────────────────────────────────
 function updateClock() {
@@ -514,216 +289,153 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// ── MU grid ──────────────────────────────────────────────────────────────────
-let filteredMU = [...MU_VEHICLES];
-let selectedMU = null;
+// ── Load vehicles — exactly like driver_inspection ────────────────────────────
+async function loadVehicles() {
+  const sel = document.getElementById('vehicleSelect');
+  try {
+    const today = new Date().toISOString().slice(0,10);
+    const [vRes, aRes] = await Promise.all([
+      fetch(`${API}/api/dispatch/vehicles`),
+      fetch(`${API}/api/dispatch/assignments?date=${today}`)
+    ]);
+    _vehicles = await vRes.json();
+    const assignments = await aRes.json();
+    const assignedNames = assignments.map(a => a.digitsync_name);
 
-function renderMUGrid(list) {
-  const grid = document.getElementById('muGrid');
-  grid.innerHTML = list.map(v => `
-    <button class="mu-btn${selectedMU===v.code?' selected':''}"
-      onclick="selectMU('${v.code}','${v.reg}')">${v.code}</button>
-  `).join('');
-}
+    // Filter to MU vehicles only
+    const muAll = _vehicles.filter(v => (v.digitsync_name||'').toUpperCase().startsWith('MU'));
+    const assigned = muAll.filter(v => assignedNames.includes(v.digitsync_name));
+    const others   = muAll.filter(v => !assignedNames.includes(v.digitsync_name));
 
-function filterMU(q) {
-  const lower = q.toLowerCase();
-  filteredMU = MU_VEHICLES.filter(v => v.code.toLowerCase().includes(lower));
-  renderMUGrid(filteredMU);
-}
-
-function selectMU(code, reg) {
-  selectedMU = code;
-  state.muCode = code;
-  state.regPlate = reg;
-  document.getElementById('regDisplay').textContent = reg !== '—' ? reg : '(not mapped)';
-  renderMUGrid(filteredMU);
-
-  // Try to fetch reg from middleware
-  fetch(`http://127.0.0.1:8000/api/vehicles/${code}/maintenance`)
-    .then(r => r.json())
-    .then(d => {
-      const reg = d.asset?.reg_num || d.asset?.name || null;
-      if (reg) {
-        state.regPlate = reg;
-        document.getElementById('regDisplay').textContent = reg;
-      }
-    }).catch(()=>{});
-}
-
-renderMUGrid(MU_VEHICLES);
-
-// Try load MU vehicles from middleware
-fetch('http://127.0.0.1:8000/api/positions/live')
-  .then(r => r.json())
-  .then(d => {
-    const muVehs = (d.positions || [])
-      .filter(p => (p.name||'').toUpperCase().startsWith('MU'))
-      .map(p => ({ code: (p.name||'').trim(), reg: p.reg_num || '—' }))
-      .sort((a,b) => a.code.localeCompare(b.code));
-    if (muVehs.length > 0) {
-      MU_VEHICLES.length = 0;
-      muVehs.forEach(v => MU_VEHICLES.push(v));
-      filteredMU = [...MU_VEHICLES];
-      renderMUGrid(filteredMU);
+    let html = '<option value="">— Select MU Vehicle —</option>';
+    if (assigned.length) {
+      html += `<optgroup label="── Assigned Today ──">` +
+        assigned.map(v => `<option value="${v.digitsync_name}" data-reg="${v.dimo_reg||'—'}">${v.digitsync_name}${v.dimo_reg ? ' · '+v.dimo_reg : ''}</option>`).join('') +
+        '</optgroup>';
     }
-  }).catch(()=>{});
+    if (others.length) {
+      html += `<optgroup label="── All MU Vehicles ──">` +
+        others.map(v => `<option value="${v.digitsync_name}" data-reg="${v.dimo_reg||'—'}">${v.digitsync_name}${v.dimo_reg ? ' · '+v.dimo_reg : ''}</option>`).join('') +
+        '</optgroup>';
+    }
+    sel.innerHTML = html;
+  } catch(e) {
+    sel.innerHTML = '<option value="">⚠ Could not load vehicles — check API</option>';
+    console.error('Vehicle load error:', e);
+  }
+}
+loadVehicles();
+
+function onVehicleSelect(sel) {
+  const opt = sel.options[sel.selectedIndex];
+  const reg = opt?.dataset?.reg || '—';
+  document.getElementById('regDisplay').textContent = reg !== '—' ? reg : '(not mapped)';
+}
 
 // ── Place selection ──────────────────────────────────────────────────────────
 function selectPlace(group, el, inputId) {
-  // Deselect all in group
-  document.querySelectorAll(`.place-pill[data-group="${group}"]`).forEach(p => {
-    p.classList.remove('selected');
-  });
-  // Hide all inputs for group
-  document.querySelectorAll(`#${group}Group .place-input`).forEach(i => {
-    i.classList.remove('show');
-    i.value = '';
-  });
-
+  document.querySelectorAll(`.place-pill[data-group="${group}"]`).forEach(p => p.classList.remove('selected'));
+  document.querySelectorAll(`#${group}Group .place-input`).forEach(i => { i.classList.remove('show'); i.value = ''; });
   el.classList.add('selected');
-  const val = el.dataset.val;
-
   if (inputId) {
     document.getElementById(inputId).classList.add('show');
-    state[group === 'from' ? 'tripFrom' : 'tripTo'] = null; // wait for text
+    if (group === 'from') tripFrom = null;
+    else tripTo = null;
   } else {
-    state[group === 'from' ? 'tripFrom' : 'tripTo'] = val;
+    if (group === 'from') tripFrom = el.dataset.val;
+    else tripTo = el.dataset.val;
   }
 }
-
 function updateCustomPlace(group, input) {
-  const key = group === 'from' ? 'tripFrom' : 'tripTo';
-  // Find selected pill value
   const pill = document.querySelector(`.place-pill[data-group="${group}"].selected`);
   const base = pill ? pill.dataset.val : '';
-  state[key] = input.value.trim() ? `${base}: ${input.value.trim()}` : null;
+  const val = input.value.trim() ? `${base}: ${input.value.trim()}` : null;
+  if (group === 'from') tripFrom = val;
+  else tripTo = val;
 }
 
-// ── Time setters ─────────────────────────────────────────────────────────────
+// ── Time ─────────────────────────────────────────────────────────────────────
 function setTime(fieldId) {
-  const now = new Date();
-  const t = now.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  const t = new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
   document.getElementById(fieldId).value = t;
-  state[fieldId] = t;
-
-  // Set departure time auto on first set
-  if (fieldId === 'departureTime' && !state.tripNo) {
-    state.tripNo = generateTripNo();
-    document.getElementById('tripBadge').textContent = state.tripNo;
-  }
 }
 
 // ── Counters ─────────────────────────────────────────────────────────────────
-const counts = { paxOnBoard: 0, paxIn: 0 };
 function adjustCount(key, delta) {
   counts[key] = Math.max(0, counts[key] + delta);
   document.getElementById(key).textContent = counts[key];
-  state[key] = counts[key];
 }
 
-// ── Inspector ────────────────────────────────────────────────────────────────
-function saveInspector(val) {
-  state.inspector = val;
-  localStorage.setItem('mu_inspector', val);
-}
-// Pre-fill
-if (state.inspector) {
-  document.getElementById('inspectorName').value = state.inspector;
-}
-
-// ── Trip number init ─────────────────────────────────────────────────────────
-state.tripNo = generateTripNo();
-document.getElementById('tripBadge').textContent = state.tripNo;
+// ── Pre-fill inspector name ──────────────────────────────────────────────────
+const savedInspector = localStorage.getItem('mu_inspector');
+if (savedInspector) document.getElementById('inspectorName').value = savedInspector;
 
 // ── Submit ───────────────────────────────────────────────────────────────────
 async function submitForm() {
-  // Validate
-  const errors = [];
-  if (!state.muCode)        errors.push('Select an MU vehicle');
-  if (!state.tripFrom)      errors.push('Select Trip From location');
-  if (!state.tripTo)        errors.push('Select Trip To location');
-  if (!state.departureTime) errors.push('Set departure time');
+  const vehicle   = document.getElementById('vehicleSelect').value;
+  const depTime   = document.getElementById('departureTime').value;
+  const inspector = document.getElementById('inspectorName').value.trim();
 
-  if (errors.length) {
-    showToast('⚠ ' + errors[0], true);
-    return;
-  }
+  const errors = [];
+  if (!vehicle)  errors.push('Select an MU vehicle');
+  if (!tripFrom) errors.push('Select Trip From location');
+  if (!tripTo)   errors.push('Select Trip To location');
+  if (!depTime)  errors.push('Set departure time');
+  if (errors.length) { showToast('⚠ ' + errors[0], true); return; }
+
+  const opt = document.getElementById('vehicleSelect').options[document.getElementById('vehicleSelect').selectedIndex];
 
   const payload = {
-    trip_no:        state.tripNo,
-    mu_code:        state.muCode,
-    reg_plate:      state.regPlate,
-    trip_from:      state.tripFrom,
-    trip_to:        state.tripTo,
-    departure_time: state.departureTime,
-    end_time:       state.endTime || null,
+    trip_no:        currentTripNo,
+    mu_code:        vehicle,
+    reg_plate:      opt?.dataset?.reg || '—',
+    trip_from:      tripFrom,
+    trip_to:        tripTo,
+    departure_time: depTime,
+    end_time:       document.getElementById('endTime').value || null,
     pax_on_board:   counts.paxOnBoard,
     pax_getting_in: counts.paxIn,
-    inspector:      document.getElementById('inspectorName').value.trim(),
+    inspector:      inspector,
     submitted_at:   new Date().toISOString(),
+    service_date:   new Date().toISOString().slice(0,10),
   };
 
-  // Save locally always (offline resilience)
+  // Always save locally first
   const saved = JSON.parse(localStorage.getItem('mu_surveys') || '[]');
   saved.push(payload);
   localStorage.setItem('mu_surveys', JSON.stringify(saved));
 
-  // Try post to middleware
+  // Post to middleware
   try {
-    const resp = await fetch('http://127.0.0.1:8000/api/mopup/survey', {
+    const resp = await fetch(`${API}/api/mopup/survey`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    if (resp.ok) {
-      showToast('✓ Submitted — ' + state.tripNo);
-    } else {
-      showToast('✓ Saved locally (server error)');
-    }
+    showToast(resp.ok ? `✓ Submitted — ${currentTripNo}` : '✓ Saved locally (server error)');
   } catch {
     showToast('✓ Saved locally (offline)');
   }
 
-  // Reset for next observation
   setTimeout(resetForm, 1800);
 }
 
 function resetForm() {
-  // New trip number
-  state.tripNo = generateTripNo();
-  document.getElementById('tripBadge').textContent = state.tripNo;
-
-  // Reset vehicle
-  selectedMU = null;
-  state.muCode = null;
-  state.regPlate = null;
+  currentTripNo = generateTripNo();
+  document.getElementById('tripBadge').textContent = currentTripNo;
+  document.getElementById('vehicleSelect').value = '';
   document.getElementById('regDisplay').textContent = '—';
-  document.getElementById('muSearch').value = '';
-  filteredMU = [...MU_VEHICLES];
-  renderMUGrid(filteredMU);
-
-  // Reset places
   document.querySelectorAll('.place-pill').forEach(p => p.classList.remove('selected'));
-  document.querySelectorAll('.place-input').forEach(i => { i.classList.remove('show'); i.value = ''; });
-  state.tripFrom = null;
-  state.tripTo = null;
-
-  // Reset times
+  document.querySelectorAll('.place-input').forEach(i => { i.classList.remove('show'); i.value=''; });
+  tripFrom = null; tripTo = null;
   document.getElementById('departureTime').value = '';
   document.getElementById('endTime').value = '';
-  state.departureTime = null;
-  state.endTime = null;
-
-  // Reset counters
   counts.paxOnBoard = 0; counts.paxIn = 0;
   document.getElementById('paxOnBoard').textContent = '0';
   document.getElementById('paxIn').textContent = '0';
-
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ── Toast ─────────────────────────────────────────────────────────────────────
 function showToast(msg, isError) {
   const t = document.getElementById('toast');
   t.textContent = msg;
