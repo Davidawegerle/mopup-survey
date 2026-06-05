@@ -337,19 +337,19 @@ function selectPlace(group, el, inputId) {
   document.querySelectorAll(`.place-pill[data-group="${group}"]`).forEach(p => p.classList.remove('selected'));
   document.querySelectorAll(`#${group}Group .place-input`).forEach(i => { i.classList.remove('show'); i.value = ''; });
   el.classList.add('selected');
+  // Always set the base value immediately so validation passes even without detail text
+  if (group === 'from') tripFrom = el.dataset.val;
+  else tripTo = el.dataset.val;
   if (inputId) {
     document.getElementById(inputId).classList.add('show');
-    if (group === 'from') tripFrom = null;
-    else tripTo = null;
-  } else {
-    if (group === 'from') tripFrom = el.dataset.val;
-    else tripTo = el.dataset.val;
+    document.getElementById(inputId).focus();
   }
 }
 function updateCustomPlace(group, input) {
   const pill = document.querySelector(`.place-pill[data-group="${group}"].selected`);
   const base = pill ? pill.dataset.val : '';
-  const val = input.value.trim() ? `${base}: ${input.value.trim()}` : null;
+  // Use base value if no detail typed, append detail if typed
+  const val = input.value.trim() ? `${base}: ${input.value.trim()}` : base;
   if (group === 'from') tripFrom = val;
   else tripTo = val;
 }
