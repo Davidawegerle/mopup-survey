@@ -213,6 +213,15 @@
     </div>
   </div>
 
+  <!-- TRIP TIMER -->
+  <div class="card" id="liveTrackerCard" style="display:none">
+    <div class="card-title">⏱ Trip Timer</div>
+    <div style="text-align:center;padding:10px 0">
+      <div style="font-size:48px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:2px" id="trackElapsed">00:00</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px">Trip in progress — GPS tracked by server</div>
+    </div>
+  </div>
+
   <!-- PAX COUNTS -->
   <div class="card">
     <div class="card-title">👥 Passenger Count</div>
@@ -355,9 +364,29 @@ function updateCustomPlace(group, input) {
 }
 
 // ── Time ─────────────────────────────────────────────────────────────────────
+// ── Trip timer (no GPS polling — server handles tracking) ─────────────────────
+let _trackInterval = null;
+let _trackStart    = null;
+
 function setTime(fieldId) {
   const t = new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
   document.getElementById(fieldId).value = t;
+
+  if (fieldId === 'departureTime') {
+    _trackStart = Date.now();
+    document.getElementById('liveTrackerCard').style.display = 'block';
+    if (_trackInterval) clearInterval(_trackInterval);
+    _trackInterval = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - _trackStart) / 1000);
+      const mm = String(Math.floor(elapsed / 60)).padStart(2,'0');
+      const ss = String(elapsed % 60).padStart(2,'0');
+      document.getElementById('trackElapsed').textContent = `${mm}:${ss}`;
+    }, 1000);
+  }
+
+  if (fieldId === 'endTime') {
+    if (_trackInterval) { clearInterval(_trackInterval); _trackInterval = null; }
+  }
 }
 
 // ── Counters ─────────────────────────────────────────────────────────────────
@@ -398,6 +427,7 @@ async function submitForm() {
     inspector:      inspector,
     submitted_at:   new Date().toISOString(),
     service_date:   new Date().toISOString().slice(0,10),
+    // trip_distance_km and trip_elapsed calculated server-side from position_history
   };
 
   // Always save locally first
